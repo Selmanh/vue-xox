@@ -2,11 +2,11 @@
   <div>
     <div class="game-board">
       <table cellspacing="0">
-        <tr v-bind:key="rowIndex" v-for="(row, rowIndex) in game">
+        <tr :key="rowIndex" v-for="(row, rowIndex) in game">
           <td 
-            v-bind:key="columnIndex" 
+            :key="columnIndex"
             v-for="(column, columnIndex) in row" 
-            v-on:click="click(rowIndex, columnIndex)"
+            @click="click(rowIndex, columnIndex)"
           >
             <transition name="fade">
               <span v-if="game[rowIndex][columnIndex]">
@@ -20,7 +20,7 @@
       <button 
         class="reset-button" 
         v-if="emptyCellCount() !== 9" 
-        v-on:click="reset"
+        @click="reset"
       >
         RESTART
       </button>
@@ -32,10 +32,10 @@
 export default {
   name: 'TicTacToe',
   methods: {
-    isDone: function isDone() {
+    isDone() {
       for (let i = 0; i < 3; i++) {
         // yana dogru xxx veya ooo oldu mu?
-        if (this.game[i][0] && this.game[i][0] === this.game[i][1] && 
+        if (this.game[i][0] && this.game[i][0] === this.game[i][1] &&
           this.game[i][0] === this.game[i][2]) {
           return true;
         } 
@@ -63,13 +63,13 @@ export default {
      
       return false;
     },
-    reset: function reset() {
+    reset() {
       // oyun durumunu sifirliyoruz:
       this.turn = 'X';
       this.winner = null;
       this.game = [['', '', ''], ['', '', ''], ['', '', '']];
     },
-    moveComputer: function moveComputer() {
+    moveComputer() {
       // TODO brute-force kullanma, azicik akilli oynasin :(
       // bilgisayar icin O koyabilecegi bir nokta ariyor
       let randomX;
@@ -85,14 +85,14 @@ export default {
       this.turn = 'X';
     }, 
     // kac hucre hala bos?  
-    emptyCellCount: function emptyCellCount() {
+    emptyCellCount() {
       // icice iki for'la yapabilirdik, boylesi daha havali, ooo
       return this.game.reduce((total, row) => 
         total + row.reduce((rowSum, cell) => 
           cell === '' ? rowSum + 1 : rowSum, 0
         ), 0);
     },
-    click: function click(x, y) {
+    click(x, y) {
       // oyun bittiyse, basilan yer doluysa, sira kullanicida degilse birsey yapma
       if (this.winner || this.game[x][y] || this.turn === 'O') {
         return;
