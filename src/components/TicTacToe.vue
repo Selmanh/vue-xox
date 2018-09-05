@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="main">
     <div class="game-board">
       <table cellspacing="0">
         <tr v-bind:key="rowIndex" v-for="(row, rowIndex) in game">
-          <td 
-            v-bind:key="columnIndex" 
-            v-for="(column, columnIndex) in row" 
+          <td
+            v-bind:key="columnIndex"
+            v-for="(column, columnIndex) in row"
             v-on:click="click(rowIndex, columnIndex)"
           >
             <transition name="fade">
@@ -17,9 +17,9 @@
         </tr>
       </table>
       <p v-if="winner">Game is over! Winner is {{ winner }}</p>
-      <button 
-        class="reset-button" 
-        v-if="emptyCellCount() !== 9" 
+      <button
+        class="reset-button"
+        v-if="emptyCellCount() !== 9"
         v-on:click="reset"
       >
         RESTART
@@ -38,7 +38,7 @@ export default {
         if (this.game[i][0] && this.game[i][0] === this.game[i][1] && 
           this.game[i][0] === this.game[i][2]) {
           return true;
-        } 
+        }
 
         // asagi dogru xxx veya ooo oldu mu?
         if (this.game[0][i] && this.game[0][i] === this.game[1][i] && 
@@ -48,15 +48,15 @@ export default {
       }
       
       // sagdan sola carprazlama
-      if (this.game[0][0] && 
-        this.game[0][0] === this.game[1][1] && 
+      if (this.game[0][0] &&
+        this.game[0][0] === this.game[1][1] &&
         this.game[0][0] === this.game[2][2]) {
         return true;
       }
 
       // soldan saga carprazlama
-      if (this.game[0][2] && 
-        this.game[0][2] === this.game[1][1] && 
+      if (this.game[0][2] &&
+        this.game[0][2] === this.game[1][1] &&
         this.game[0][2] === this.game[2][0]) {
         return true;
       }
@@ -106,7 +106,7 @@ export default {
       // kullanicinin hamlesiyle oyun bittiyse kazanan X
       if (this.isDone()) {
         this.winner = 'X';
-      } 
+      }
 
       // kullanicinin hamlesiyle tum hucreler dolduysa ve kazanamadiysa
       // oyun berabere bitti
@@ -142,29 +142,15 @@ export default {
         ['', '', ''],
         ['', '', ''],
         ['', '', ''],
-      ]
+      ],
     };
   },
 };
 </script>
 
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
+.main {
+  user-select: none;
 }
 
 .game-board table {
